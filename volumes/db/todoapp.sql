@@ -6,30 +6,39 @@ create table public.todos (
   "Completed" boolean not null default false,
   constraint todos_pkey primary key (id)
 ) TABLESPACE pg_default;
-alter policy "Enable delete for users based on user_id"
+create policy "Enable delete for users based on user_id"
 on "public"."todos"
+as PERMISSIVE
+for DELETE
 to public
 using (
   (( SELECT uid() AS uid) = user_id)
 );
 
-alter policy "Enable insert for users based on user_id"
+create policy "Enable insert for users based on user_id"
 on "public"."todos"
+as PERMISSIVE
+for INSERT
 to public
 with check (
   (( SELECT uid() AS uid) = user_id)
 );
 
-alter policy "Enable read access for all users"
+create policy "Enable read access for all users"
 on "public"."todos"
+as PERMISSIVE
+for SELECT
 to public
 using (
   true
 );
 
-alter policy "Policy with table joins"
+create policy "Policy with table joins"
 on "public"."todos"
+as PERMISSIVE
+for UPDATE
 to public
 using (
   (( SELECT uid() AS uid) = user_id)
 );
+alter table public.todos enable row level security;
