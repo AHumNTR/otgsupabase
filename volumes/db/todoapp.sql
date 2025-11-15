@@ -42,3 +42,42 @@ using (
   (( SELECT uid() AS uid) = user_id)
 );
 alter table public.todos enable row level security;
+
+
+create or replace function insert_todo(p_title text)
+returns setof todos
+language plpgsql
+as $$
+begin
+    return query
+    insert into todos (title, user_id)
+    values (p_title, auth.uid())
+    returning *;
+end;
+$$;
+create or replace function delete_todo(p_id int8)
+returns setof todos
+language plpgsql
+as $$
+begin
+    return query
+    delete from todos
+    where id = p_id
+      and user_id = auth.uid()
+    returning *;
+end;
+$$;
+
+create or replace function toggle_todo(p_id int8)
+returns setof todos 
+language plpgsql
+as $$
+begin
+    return query
+    update todos
+    set completed = not completed
+    where id = p_id
+      and user_id = auth.uid()
+    returning *;
+end;
+$$;
