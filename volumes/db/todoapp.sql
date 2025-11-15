@@ -3,9 +3,10 @@ create table public.todos (
   title text null,
   created_at timestamp with time zone not null default now(),
   user_id uuid null default gen_random_uuid (),
-  "Completed" boolean not null default false,
+  completed boolean not null default false,
   constraint todos_pkey primary key (id)
 ) TABLESPACE pg_default;
+
 create policy "Enable delete for users based on user_id"
 on "public"."todos"
 as PERMISSIVE
@@ -43,6 +44,18 @@ using (
 );
 alter table public.todos enable row level security;
 
+create or replace function select_todo()
+returns setof todos
+language plpgsql
+as $$
+begin
+    return query
+    select *
+    from todos
+    where user_id = auth.uid()
+    order by id desc;
+end;
+$$;
 
 create or replace function insert_todo(p_title text)
 returns setof todos
