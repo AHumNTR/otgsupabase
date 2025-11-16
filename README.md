@@ -11,3 +11,4 @@ todoapp i docker huba yukledim ordan cekiyo daha temiz olsun diye ama degisiklik
 git linki https://github.com/AHumNTR/todo
 
 yanlislikla brevo sifremi paylasmisim degistirdim simdi eskisini de sildim. email onayini da kaldirdim email onayini kullanmak icin .env de EMAIL_AUTOCONFIRM u false yapip smtp verilerini girmek yeterli
+normalde email confirm olcagina gore todo app i kodladigim icin email onaylaman lzm dicektir yine ama giris yapilabiliyor olmasi lzm.
