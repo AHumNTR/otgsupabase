@@ -10,4 +10,4 @@ ENABLE_EMAIL_AUTOCONFIRM degiskeni degistirilip email onayi iptal de edilebilir.
 todoapp i docker huba yukledim ordan cekiyo daha temiz olsun diye ama degisiklik yapmak gerekirse compose dosyasindaki todoapp servisinden imagei local image e cevirip calistirilabilir
 git linki https://github.com/AHumNTR/todo
 
-yanlislikla brevo sifremi paylasmisim degistirdim simdi eskisini de sildim. email onaysiz kullanmak icin .env de EMAIL_AUTOCONFIRM u true yapmak yeterli
+yanlislikla brevo sifremi paylasmisim degistirdim simdi eskisini de sildim. email onayini da kaldirdim email onayini kullanmak icin .env de EMAIL_AUTOCONFIRM u false yapip smtp verilerini girmek yeterli
